@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<property name="LOG_FORMAT">%d{yyyy-MM-dd HH:mm:ss} %p %m%n</property>
+<!-- 		<property name="BASE_DIR">C:/shin/project/weekendceo/log</property> -->
+	</Properties>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_FORMAT}" />
+		</Console>
+<!-- 		<RollingFile name="File" fileName="${BASE_DIR}/weekendCeoWeb.log" filePattern="${BASE_DIR}/weekendCeoWeb.%d{yyyyMMdd}.log"> -->
+<!-- 			<patternLayout pattern="${LOG_FORMAT}"/> -->
+<!-- 			<Policies> -->
+<!-- 				<TimeBasedTriggeringPolicy/> -->
+<!-- 			</Policies> -->
+<!-- 			<DefaultRolloverStrategy> -->
+<!-- 				<Delete basePath="${BASE_DIR}"> -->
+<!-- 					<IfFileName glob="*.log"/> -->
+<!-- 					<IfLastModified age="30d"/> -->
+<!-- 				</Delete> -->
+<!-- 			</DefaultRolloverStrategy> -->
+<!-- 		</RollingFile> -->
+	</Appenders>
+	<Loggers>
+		<Logger name="java.sql" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.hibernate" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<!-- log SQL with timing information, post execution -->
+		<Logger name="jdbc.sqltiming" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="log4jdbc.Slf4jSpyLogDelegator" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="egovframework" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="com.weekendceo" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.springframework" level="INFO"
+			additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.springframework.web.servlet.DispatcherServlet" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Root level="OFF">
+			<AppenderRef ref="console" />
+<!-- 			<AppenderRef ref="File" /> -->
+		</Root>
+	</Loggers>
+</Configuration>

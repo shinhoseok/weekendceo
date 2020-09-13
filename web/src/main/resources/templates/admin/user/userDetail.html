@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>주말대표</title>
+<link rel="stylesheet" th:href="@{/css/common.css}"/>
+<link rel="stylesheet" th:href="@{/css/worksite.css}"/>
+<script th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
+</head>
+<body>
+	<header th:replace="fragment/header :: headerFragment"></header>
+	<!--header End-->
+	<div class="wrap">
+		<div class="container">
+			<th:block th:replace="fragment/leftMenu :: leftMenuFragment"></th:block>
+			<div class="contents">
+				<p class="contentTitle">사용자 목록</p>
+				<p class="sub_path">
+					<img th:src="@{/images/ico_home.png}" width="10" height="9" />&nbsp;〉&nbsp;사용자관리&nbsp;〉&nbsp;사용자관리
+				</p>
+				<h4 class="contentTitle_h4">사용자 정보</h4>
+				<div class="tableLayer">
+					<table class="table">
+						<caption></caption>
+						<colgroup>
+							<col width="150px">
+							<col width="340px">
+							<col width="150px">
+							<col width="340px">
+						</colgroup>
+						<tbody class="line">
+							<tr>
+								<th>이름</th>
+								<td th:text="${resultVO.userNm}"></td>
+								<th>아이디</th>
+								<td th:text="${resultVO.userId}"></td>
+							</tr>
+							<tr>
+								<th>이메일주소</th>
+								<td th:text="${resultVO.emailAddr}"></td>
+								<th>가입일</th>
+								<td th:text="${#temporals.format(resultVO.regDt, 'yyyy-MM-dd')}"></td>
+							</tr>
+							<tr>
+								<th>전화번호</th>
+								<td th:text="${#strings.defaultString(resultVO.pno,'-')}"></td>
+								<th>휴대폰번호</th>
+								<td th:text="${#strings.defaultString(resultVO.mblPno,'-')}"></td>
+							</tr>
+							<tr>
+								<th>주소</th>
+								<td colspan="4" th:text="${#strings.defaultString(resultVO.addr,'-')}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="T_btnLayer fr">
+					<a href="javascript:void(0);" onclick="javascript:fn_updateUser();"><button type="button" class="blueBtn L">수정</button></a>
+					<a href="javascript:void(0);" onclick="javascript:fn_deleteUserProc();"><button type="button" class="blueBtn L">삭제</button></a>
+					<a href="javascript:void(0);" onclick="javascript:fn_selectUserList();"><button type="button" class="blueBtn L">목록</button></a>
+				</div>
+			</div>
+		</div>
+		<!--container End-->
+		<form method="post" name="userVO" id="userVO">
+			<input type="hidden" name="page" id="page" th:value="${userVO.page + 1}">
+			<input type="hidden" name="sortSubject" th:value="${userVO.sortSubject}">
+			<input type="hidden" name="sortDescend" th:value="${userVO.sortDescend}">
+			<input type="hidden" name="userId" id="userId" th:value="${userVO.userId}">
+		</form>
+	</div>
+	<!--wrap End-->
+	<footer th:replace="fragment/footer :: footerFragment"></footer>
+	<!--//footer-->
+<script th:inline="javascript">
+	//수정
+	var fn_updateUser = function() {
+		$("#userVO").attr("action", /*[[@{/usermng/w/m/updateUser.do}]]*/);
+		$("#userVO").submit();
+	};
+	
+	//삭제
+	var fn_deleteUserProc = function() {
+		if(confirm("삭제 하시겠습니까?")) {
+			$("#userVO").attr("action", /*[[@{/usermng/w/n/deleteUserProc.do}]]*/);
+			$("#userVO").submit();
+		}
+	};
+	
+	//목록
+	var fn_selectUserList = function() {
+		$("#userVO").attr("action", /*[[@{/usermng/r/m/selectUserList.do}]]*/);
+		$("#userVO").submit();
+	};
+</script>
+</body>
+</html>

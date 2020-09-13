@@ -1,0 +1,50 @@
+spring:
+  profiles:    active: local
+    
+#로컬환경
+---
+spring:
+  profiles: local
+  datasource:
+    hikari:      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://127.0.0.1:3306/test
+      username: shin
+      password: tlsghtjr1!
+  thymeleaf:    mode: HTML
+    encoding: UTF-8
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+  jpa:
+    properties:      hibernate:
+        format_sql: true
+logging:  level:    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+server:  port: 8080
+  servlet:
+    context-path: /
+    
+#운영환경
+---
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/test
+    username: shin
+    password: tlsghtjr1!
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+server:
+  port: 8080
+  servlet:
+    context-path: /
